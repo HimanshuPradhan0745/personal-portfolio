@@ -1,6 +1,7 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
+import { join } from 'path';
 
-export default (): TypeOrmModuleOptions => ({
+export const databaseConfig: TypeOrmModuleOptions = {
   type: 'postgres',
   host: process.env.DATABASE_HOST,
   port: Number(process.env.DATABASE_PORT),
@@ -10,5 +11,6 @@ export default (): TypeOrmModuleOptions => ({
 
   autoLoadEntities: true,
   synchronize: true,
-  logging: true,
-});
+  // logging: true,
+  entities: [join(__dirname, '/../**/*.entity{.ts,.js}')],
+};
